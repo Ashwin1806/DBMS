@@ -1,0 +1,240 @@
+UPDATE ProductCategory
+()' at line 2
+mysql> UPDATE ProductCategory
+    -> (SET NAME ='ninjaa';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near '(SET NAME ='ninjaa'' at line 2
+mysql> SELECT *
+    -> FROM PRODUCTCATEGORY;
++-------------------+-------------+--------------+
+| ProductCategoryID | Name        | ProductPrice |
++-------------------+-------------+--------------+
+|                 1 | Thyson      |         5900 |
+|                 2 | ThunderBird |         5999 |
+|                 3 | Classic     |         6999 |
+|                 4 | Simba       |        16999 |
+|                 5 | Hayabussa   |        16999 |
+|                 6 | ninja       |        17999 |
++-------------------+-------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE Productcategory
+    -> SET NAME ='ninjaa'
+    -> WHERE Productcategory=6;
+ERROR 1054 (42S22): Unknown column 'Productcategory' in 'where clause'
+mysql> UPDATE ProductCategory
+    -> SET NAME ='ninjaa'
+    -> WHERE ProductcategoryID=6;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *
+    -> FROM ProductCategory;
++-------------------+-------------+--------------+
+| ProductCategoryID | Name        | ProductPrice |
++-------------------+-------------+--------------+
+|                 1 | Thyson      |         5900 |
+|                 2 | ThunderBird |         5999 |
+|                 3 | Classic     |         6999 |
+|                 4 | Simba       |        16999 |
+|                 5 | Hayabussa   |        16999 |
+|                 6 | ninjaa      |        17999 |
++-------------------+-------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> DELETE ProductCategory
+    -> WHERE NAME='Hayabussa';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'WHERE NAME='Hayabussa'' at line 2
+mysql> DELETE ProductCategory
+    -> WHERE NAME='Hayabussa';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'WHERE NAME='Hayabussa'' at line 2
+mysql> DELETE ProductCategory
+    -> WHERE Name='Hayabussa';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'WHERE Name='Hayabussa'' at line 2
+mysql> DELETE ProductCategory
+    -> WHERE Name='Hayabussa';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'WHERE Name='Hayabussa'' at line 2
+mysql> DELETE from  ProductCategory
+    -> WHERE Name='Hayabussa';
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT *
+    -> FROM ProductCategory;
++-------------------+-------------+--------------+
+| ProductCategoryID | Name        | ProductPrice |
++-------------------+-------------+--------------+
+|                 1 | Thyson      |         5900 |
+|                 2 | ThunderBird |         5999 |
+|                 3 | Classic     |         6999 |
+|                 4 | Simba       |        16999 |
+|                 6 | ninjaa      |        17999 |
++-------------------+-------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> Drop table ProductCategory;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> SELECT *
+    -> FROM ProductCategory;
+ERROR 1146 (42S02): Table 'adventureworks.productcategory' doesn't exist
+mysql> truncate table ProductCategory;
+ERROR 1146 (42S02): Table 'adventureworks.productcategory' doesn't exist
+mysql> show database
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| adventureworks     |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| person             |
+| test               |
++--------------------+
+15 rows in set (0.14 sec)
+
+mysql> create database onlineakka;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'database' at line 1
+mysql> show database onlineakka;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'database onlineakka' at line 1
+mysql> show databeaes;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'databeaes' at line 1
+mysql> USE onlineakka
+Database changed
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| adventureworks     |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| onlineakka         |
+| person             |
+| test               |
++--------------------+
+16 rows in set (0.00 sec)
+
+mysql> use onlineakka;
+Database changed
+mysql> use onlineakka;
+Database changed
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| adventureworks     |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| onlineakka         |
+| person             |
+| test               |
++--------------------+
+16 rows in set (0.00 sec)
+
+mysql> use onlineakka;
+Database changed
+mysql> create table productcategory
+    -> (
+    -> productid int
+    -> name varchar(20)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'name varchar(20)
+)' at line 4
+mysql> select *
+    -> from productcategory;
+ERROR 1146 (42S02): Table 'onlineakka.productcategory' doesn't exist
+mysql> create table productcategory
+    -> (
+    -> productID INT
+    -> name varchar;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'name varchar' at line 4
+mysql> crrate table productcategory
+    -> (
+    -> productcategoryid int,
+    -> prodname varchar(20),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'crrate table productcategory
+(
+productcategoryid int,
+prodname varchar(20),
+)' at line 1
+mysql> create table productcategory
+    -> (
+    -> productcategoryid int,
+    -> prodname varchar(20),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near ')' at line 5
+mysql> create table productcategory
+    -> (
+    -> productcategoryid int,
+    -> prodname varchar(20),
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near ')' at line 5
+mysql> create table productcategory
+    -> (
+    -> productcategoryid int,
+    -> prodname varchar(20)
+    -> );
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> select *
+    -> from productcategory;
+Empty set (0.00 sec)
+
+mysql> insert into productcategory value(1,'xyz')
+    -> insert into productcategory value(2,'abc');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'insert into productcategory value(2,'abc')' at line 2
+mysql> insert into productcategory values(1,'xyz');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into productcategory values(2,'abc');
+Query OK, 1 row affected (0.01 sec)
