@@ -1,0 +1,168 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| person             |
+| test               |
++--------------------+
+14 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE Vita;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| person             |
+| test               |
+| vita               |
++--------------------+
+15 rows in set (0.00 sec)
+
+mysql> USE Vita;
+Database changed
+mysql> Create Table StudentDetails
+    -> (StudentID int , Name varchar(30), CCATRank int, primary key(studentid));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into studentdetails VALUES(111,'Sagar Manchekar',534);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into studentdetails VALUES(222,'Shubham Paedeshi',2110);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into studentdetails VALUES(333,'Ashwin Waghchaure',1874);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into studentdetails VALUES(333,'Ashwin Waghchaure',1874);
+ERROR 1062 (23000): Duplicate entry '333' for key 'PRIMARY'
+mysql> insert into studentdetails VALUES(444,'Rohit Sorte',122);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into studentdetails VALUES(555,'Mayur Badgujar',3475);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT *
+    -> From studentdetails;
++-----------+-------------------+----------+
+| StudentID | Name              | CCATRank |
++-----------+-------------------+----------+
+|       111 | Sagar Manchekar   |      534 |
+|       222 | Shubham Paedeshi  |     2110 |
+|       333 | Ashwin Waghchaure |     1874 |
+|       444 | Rohit Sorte       |      122 |
+|       555 | Mayur Badgujar    |     3475 |
++-----------+-------------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE studentdetails ADD COLUMN BRANCH varchar(10);
+Query OK, 5 rows affected (0.19 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *
+    -> from studentdetails;
++-----------+-------------------+----------+--------+
+| StudentID | Name              | CCATRank | BRANCH |
++-----------+-------------------+----------+--------+
+|       111 | Sagar Manchekar   |      534 | NULL   |
+|       222 | Shubham Paedeshi  |     2110 | NULL   |
+|       333 | Ashwin Waghchaure |     1874 | NULL   |
+|       444 | Rohit Sorte       |      122 | NULL   |
+|       555 | Mayur Badgujar    |     3475 | NULL   |
++-----------+-------------------+----------+--------+
+5 rows in set (0.00 sec)
+
+
+mysql> UPDATE STUDENTDETAILS
+    -> SET BRANCH='EXTC'
+    -> WHERE STUDENTID=111;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE STUDENTDETAILS
+    -> SET BRANCH='MECH'
+    -> WHERE STUDENTID=222;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE STUDENTDETAILS
+    -> SET BRANCH='INSTRU'
+    -> WHERE STUDENTID=333;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE STUDENTDETAILS
+    -> SET BRANCH='EXTC'
+    -> WHERE STUDENTID=444;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE STUDENTDETAILS
+    -> SET BRANCH='ELECTRONIC'
+    -> WHERE STUDENTID=555;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *
+    -> from studentdetails;
++-----------+-------------------+----------+------------+
+| StudentID | Name              | CCATRank | BRANCH     |
++-----------+-------------------+----------+------------+
+|       111 | Sagar Manchekar   |      534 | EXTC       |
+|       222 | Shubham Paedeshi  |     2110 | MECH       |
+|       333 | Ashwin Waghchaure |     1874 | INSTRU     |
+|       444 | Rohit Sorte       |      122 | EXTC       |
+|       555 | Mayur Badgujar    |     3475 | ELECTRONIC |
++-----------+-------------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM STUDENTDETAILS
+    -> WHERE StudentID=555;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT *
+    -> from studentdetails;
++-----------+-------------------+----------+--------+
+| StudentID | Name              | CCATRank | BRANCH |
++-----------+-------------------+----------+--------+
+|       111 | Sagar Manchekar   |      534 | EXTC   |
+|       222 | Shubham Paedeshi  |     2110 | MECH   |
+|       333 | Ashwin Waghchaure |     1874 | INSTRU |
+|       444 | Rohit Sorte       |      122 | EXTC   |
++-----------+-------------------+----------+--------+
+4 rows in set (0.00 sec)
+
+mysql>
