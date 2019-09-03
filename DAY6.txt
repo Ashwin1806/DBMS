@@ -1,0 +1,352 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| person             |
+| test               |
+| textdatatypes      |
+| vita               |
++--------------------+
+16 rows in set (0.36 sec)
+
+mysql> create database SWORDFISH
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| person             |
+| swordfish          |
+| test               |
+| textdatatypes      |
+| vita               |
++--------------------+
+17 rows in set (0.00 sec)
+
+
+mysql> use swordfish;
+Database changed
+
+mysql> create table location
+    -> (
+    -> LocID int primary key,
+    -> City varchar(10),
+    -> Addr varchar(20)
+    -> )
+    -> ;
+Query OK, 0 rows affected (0.11 sec)
+
+
+mysql> insert into location values
+    -> (100,'Mumbai','BKC'),
+    -> (101,'Pune','HINJEWADI'),
+    -> (102,'Hyderabad','HITECH CITY'),
+    -> (103,'Gurgaon','DLF'),
+    -> (104,'Banglore','ITR'),
+    -> (105,'Mumbai','MBP'),
+    -> (106,'Nagpur','MIHAN');
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select *
+    -> from Location;
++-------+-----------+-------------+
+| LocID | City      | Addr        |
++-------+-----------+-------------+
+|   100 | Mumbai    | BKC         |
+|   101 | Pune      | HINJEWADI   |
+|   102 | Hyderabad | HITECH CITY |
+|   103 | Gurgaon   | DLF         |
+|   104 | Banglore  | ITR         |
+|   105 | Mumbai    | MBP         |
+|   106 | Nagpur    | MIHAN       |
++-------+-----------+-------------+
+7 rows in set (0.00 sec)
+
+mysql>  create table Dept
+    ->  (
+    ->  DeptID int primary key,
+    ->  Department varchar(10),
+    -> LocID int references Location(LocID)
+    ->  );
+Query OK, 0 rows affected (0.06 sec)
+mysql>  insert into Dept values
+    ->  (1,'Finance',100),
+    ->  (2,'HR',100),
+    ->  (3,'Develope',101),
+    ->  (4,'R&D',102),
+    ->  (5,'Admin',103),
+    ->  (6,'DataCenter',104),
+    ->  (7,'Testing',105),
+    ->  (8,'Support',106);
+Query OK, 8 rows affected (0.02 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select *
+    -> from dept;
++--------+------------+-------+
+| DeptID | Department | LocID |
++--------+------------+-------+
+|      1 | Finance    |   100 |
+|      2 | HR         |   100 |
+|      3 | Develope   |   101 |
+|      4 | R&D        |   102 |
+|      5 | Admin      |   103 |
+|      6 | DataCenter |   104 |
+|      7 | Testing    |   105 |
+|      8 | Support    |   106 |
++--------+------------+-------+
+8 rows in set (0.00 sec)
+
+mysql>
+
+mysql>
+mysql>  create table Employee
+    ->  (
+    -> EmpID int PRIMARY KEY,
+    ->  Fname varchar(15),
+    -> Lname varchar(15),
+    -> DeptID int references Dept(DeptID),
+    -> MngrID int references Employee(EmpID),
+    -> Salary Decimal(10,2)
+    ->  );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql>
+mysql>  insert into Employee values
+    ->  (1001,'Shubham','Pardeshi',3, NULL,50000),
+    ->  (1002,'Sagar','Manchekar',3, 1001,50000),
+    -> (1003,'Abhishek','Jadhav',4, 1004,50000),
+    -> (1004,'Ritik','Singh',4, 1009,55000),
+    -> (1005,'Rohit','Sorte',7, 1010,30000),
+    -> (1006,'Anil','Ambani',8, 1007,30000),
+    -> (1007,'Mukesh','Ambani',1,1001,40000),
+    -> (1008,'Anant','Ambani',2, 1007,40000),
+    -> (1009,'Abhijeet','Bagde',6, NULL,70000),
+    -> (1010,'Vijay','Ugale',6, NULL,60000),
+    -> (1011,'Julie','Carter',5, 1007,25000);
+Query OK, 11 rows affected (0.03 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+mysql> select *
+    -> from Employee;
++-------+----------+-----------+--------+--------+----------+
+| EmpID | Fname    | Lname     | DeptID | MngrID | Salary   |
++-------+----------+-----------+--------+--------+----------+
+|  1001 | Shubham  | Pardeshi  |      3 |   NULL | 50000.00 |
+|  1002 | Sagar    | Manchekar |      3 |   1001 | 50000.00 |
+|  1003 | Abhishek | Jadhav    |      4 |   1004 | 50000.00 |
+|  1004 | Ritik    | Singh     |      4 |   1009 | 55000.00 |
+|  1005 | Rohit    | Sorte     |      7 |   1010 | 30000.00 |
+|  1006 | Anil     | Ambani    |      8 |   1007 | 30000.00 |
+|  1007 | Mukesh   | Ambani    |      1 |   1001 | 40000.00 |
+|  1008 | Anant    | Ambani    |      2 |   1007 | 40000.00 |
+|  1009 | Abhijeet | Bagde     |      6 |   NULL | 70000.00 |
+|  1010 | Vijay    | Ugale     |      6 |   NULL | 60000.00 |
+|  1011 | Julie    | Carter    |      5 |   1007 | 25000.00 |
++-------+----------+-----------+--------+--------+----------+
+11 rows in set (0.00 sec)
+
+mysql> select concat(fname,' ',lname) as Employee,mngrid
+    -> from employee
+    -> where mngrid IS NULL;
++------------------+--------+
+| Employee         | mngrid |
++------------------+--------+
+| Shubham Pardeshi |   NULL |
+| Abhijeet Bagde   |   NULL |
+| Vijay Ugale      |   NULL |
++------------------+--------+
+3 rows in set (0.05 sec)
+mysql>  select *
+    ->  from employee
+    -> order by salary;
++-------+----------+-----------+--------+--------+----------+
+| EmpID | Fname    | Lname     | DeptID | MngrID | Salary   |
++-------+----------+-----------+--------+--------+----------+
+|  1011 | Julie    | Carter    |      5 |   1007 | 25000.00 |
+|  1006 | Anil     | Ambani    |      8 |   1007 | 30000.00 |
+|  1005 | Rohit    | Sorte     |      7 |   1010 | 30000.00 |
+|  1007 | Mukesh   | Ambani    |      1 |   1001 | 40000.00 |
+|  1008 | Anant    | Ambani    |      2 |   1007 | 40000.00 |
+|  1003 | Abhishek | Jadhav    |      4 |   1004 | 50000.00 |
+|  1002 | Sagar    | Manchekar |      3 |   1001 | 50000.00 |
+|  1001 | Shubham  | Pardeshi  |      3 |   NULL | 50000.00 |
+|  1004 | Ritik    | Singh     |      4 |   1009 | 55000.00 |
+|  1010 | Vijay    | Ugale     |      6 |   NULL | 60000.00 |
+|  1009 | Abhijeet | Bagde     |      6 |   NULL | 70000.00 |
++-------+----------+-----------+--------+--------+----------+
+11 rows in set (0.02 sec)
+
+mysql>  select *
+    ->  from employee
+    ->  where fname like '%a%';
++-------+----------+-----------+--------+--------+----------+
+| EmpID | Fname    | Lname     | DeptID | MngrID | Salary   |
++-------+----------+-----------+--------+--------+----------+
+|  1001 | Shubham  | Pardeshi  |      3 |   NULL | 50000.00 |
+|  1002 | Sagar    | Manchekar |      3 |   1001 | 50000.00 |
+|  1003 | Abhishek | Jadhav    |      4 |   1004 | 50000.00 |
+|  1006 | Anil     | Ambani    |      8 |   1007 | 30000.00 |
+|  1008 | Anant    | Ambani    |      2 |   1007 | 40000.00 |
+|  1009 | Abhijeet | Bagde     |      6 |   NULL | 70000.00 |
+|  1010 | Vijay    | Ugale     |      6 |   NULL | 60000.00 |
++-------+----------+-----------+--------+--------+----------+
+7 rows in set (0.00 sec)
+
+
+mysql> select concat(Fname,' ',Lname) as Employee,salary,department
+    -> from employee,dept
+    -> where Salary  between 25000 and 40000;
++---------------+----------+------------+
+| Employee      | salary   | department |
++---------------+----------+------------+
+| Rohit Sorte   | 30000.00 | Finance    |
+| Anil Ambani   | 30000.00 | Finance    |
+| Mukesh Ambani | 40000.00 | Finance    |
+| Anant Ambani  | 40000.00 | Finance    |
+| Julie Carter  | 25000.00 | Finance    |
+| Rohit Sorte   | 30000.00 | HR         |
+| Anil Ambani   | 30000.00 | HR         |
+| Mukesh Ambani | 40000.00 | HR         |
+| Anant Ambani  | 40000.00 | HR         |
+| Julie Carter  | 25000.00 | HR         |
+| Rohit Sorte   | 30000.00 | Develope   |
+| Anil Ambani   | 30000.00 | Develope   |
+| Mukesh Ambani | 40000.00 | Develope   |
+| Anant Ambani  | 40000.00 | Develope   |
+| Julie Carter  | 25000.00 | Develope   |
+| Rohit Sorte   | 30000.00 | R&D        |
+| Anil Ambani   | 30000.00 | R&D        |
+| Mukesh Ambani | 40000.00 | R&D        |
+| Anant Ambani  | 40000.00 | R&D        |
+| Julie Carter  | 25000.00 | R&D        |
+| Rohit Sorte   | 30000.00 | Admin      |
+| Anil Ambani   | 30000.00 | Admin      |
+| Mukesh Ambani | 40000.00 | Admin      |
+| Anant Ambani  | 40000.00 | Admin      |
+| Julie Carter  | 25000.00 | Admin      |
+| Rohit Sorte   | 30000.00 | DataCenter |
+| Anil Ambani   | 30000.00 | DataCenter |
+| Mukesh Ambani | 40000.00 | DataCenter |
+| Anant Ambani  | 40000.00 | DataCenter |
+| Julie Carter  | 25000.00 | DataCenter |
+| Rohit Sorte   | 30000.00 | Testing    |
+| Anil Ambani   | 30000.00 | Testing    |
+| Mukesh Ambani | 40000.00 | Testing    |
+| Anant Ambani  | 40000.00 | Testing    |
+| Julie Carter  | 25000.00 | Testing    |
+| Rohit Sorte   | 30000.00 | Support    |
+| Anil Ambani   | 30000.00 | Support    |
+| Mukesh Ambani | 40000.00 | Support    |
+| Anant Ambani  | 40000.00 | Support    |
+| Julie Carter  | 25000.00 | Support    |
++---------------+----------+------------+
+40 rows in set (0.01 sec)
+
+mysql>
+mysql> select concat(Fname,' ',Lname) as Employee,salary,department
+    -> from employee INNER JOIN dept
+    -> ON employee.deptID=dept.deptID
+    -> where Salary  between 25000 and 40000;
++---------------+----------+------------+
+| Employee      | salary   | department |
++---------------+----------+------------+
+| Rohit Sorte   | 30000.00 | Testing    |
+| Anil Ambani   | 30000.00 | Support    |
+| Mukesh Ambani | 40000.00 | Finance    |
+| Anant Ambani  | 40000.00 | HR         |
+| Julie Carter  | 25000.00 | Admin      |
++---------------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select department,fname,city,addr
+    -> from dept INNER JOIN Location
+    -> ON dept.locID=Location.LocID
+    -> INNER JOIN Employee
+    -> ON dept.deptID=Employee.deptID;
++------------+----------+-----------+-------------+
+| department | fname    | city      | addr        |
++------------+----------+-----------+-------------+
+| Develope   | Shubham  | Pune      | HINJEWADI   |
+| Develope   | Sagar    | Pune      | HINJEWADI   |
+| R&D        | Abhishek | Hyderabad | HITECH CITY |
+| R&D        | Ritik    | Hyderabad | HITECH CITY |
+| Testing    | Rohit    | Mumbai    | MBP         |
+| Support    | Anil     | Nagpur    | MIHAN       |
+| Finance    | Mukesh   | Mumbai    | BKC         |
+| HR         | Anant    | Mumbai    | BKC         |
+| DataCenter | Abhijeet | Banglore  | ITR         |
+| DataCenter | Vijay    | Banglore  | ITR         |
+| Admin      | Julie    | Gurgaon   | DLF         |
++------------+----------+-----------+-------------+
+11 rows in set (0.00 sec)
+
+mysql> select department,fname,city,addr
+    -> from dept INNER JOIN Location
+    -> ON dept.locID=Location.LocID
+    -> INNER JOIN Employee
+    -> ON dept.deptID=Employee.deptID
+    -> where city='Mumbai';
++------------+--------+--------+------+
+| department | fname  | city   | addr |
++------------+--------+--------+------+
+| Testing    | Rohit  | Mumbai | MBP  |
+| Finance    | Mukesh | Mumbai | BKC  |
+| HR         | Anant  | Mumbai | BKC  |
++------------+--------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select Department,city,Addr
+    -> from dept left outer join location
+    -> on dept.locid=location.locid;
++------------+-----------+-------------+
+| Department | city      | Addr        |
++------------+-----------+-------------+
+| Finance    | Mumbai    | BKC         |
+| HR         | Mumbai    | BKC         |
+| Develope   | Pune      | HINJEWADI   |
+| R&D        | Hyderabad | HITECH CITY |
+| Admin      | Gurgaon   | DLF         |
+| DataCenter | Banglore  | ITR         |
+| Testing    | Mumbai    | MBP         |
+| Support    | Nagpur    | MIHAN       |
++------------+-----------+-------------+
+8 rows in set (0.01 sec)
+
+
+

@@ -1,0 +1,375 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 1
+Server version: 5.1.38-community MySQL Community Server (GPL)
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| day2               |
+| db                 |
+| dbname             |
+| employee           |
+| exam               |
+| hobman             |
+| mydb               |
+| mydb2              |
+| mydemo2            |
+| mydemodata         |
+| mysql              |
+| person             |
+| test               |
+| textdatatypes      |
+| vita               |
++--------------------+
+16 rows in set (0.36 sec)
+
+mysql> use vita;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_vita |
++----------------+
+| studentdetails |
++----------------+
+1 row in set (0.11 sec)
+
+mysql> DESCIBE studentdetails;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'DESCIBE studentdetails' at line 1
+mysql> DESCRIBE studentdetails;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| StudentID | int(11)     | NO   | PRI | 0       |       |
+| Name      | varchar(30) | YES  |     | NULL    |       |
+| CCATRank  | int(11)     | YES  |     | NULL    |       |
+| BRANCH    | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+4 rows in set (0.25 sec)
+
+mysql> select * from studentdetails;
++-----------+-------------------+----------+--------+
+| StudentID | Name              | CCATRank | BRANCH |
++-----------+-------------------+----------+--------+
+|       111 | Sagar Manchekar   |      534 | EXTC   |
+|       222 | Shubham Paedeshi  |     2110 | MECH   |
+|       333 | Ashwin Waghchaure |     1874 | INSTRU |
+|       444 | Rohit Sorte       |      122 | EXTC   |
++-----------+-------------------+----------+--------+
+4 rows in set (0.05 sec)
+
+mysql> alter table tudentdetails
+    -> drop column branch;
+ERROR 1146 (42S02): Table 'vita.tudentdetails' doesn't exist
+mysql> alter table studentdetails
+    -> drop column branch;
+Query OK, 4 rows affected (0.39 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentdetails;
++-----------+-------------------+----------+
+| StudentID | Name              | CCATRank |
++-----------+-------------------+----------+
+|       111 | Sagar Manchekar   |      534 |
+|       222 | Shubham Paedeshi  |     2110 |
+|       333 | Ashwin Waghchaure |     1874 |
+|       444 | Rohit Sorte       |      122 |
++-----------+-------------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> alter table studentdetails
+    -> modify column name char(30);
+Query OK, 4 rows affected (0.16 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from studentdetails;
++-----------+-------------------+----------+
+| StudentID | name              | CCATRank |
++-----------+-------------------+----------+
+|       111 | Sagar Manchekar   |      534 |
+|       222 | Shubham Paedeshi  |     2110 |
+|       333 | Ashwin Waghchaure |     1874 |
+|       444 | Rohit Sorte       |      122 |
++-----------+-------------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> describe studentdetails;
++-----------+----------+------+-----+---------+-------+
+| Field     | Type     | Null | Key | Default | Extra |
++-----------+----------+------+-----+---------+-------+
+| StudentID | int(11)  | NO   | PRI | 0       |       |
+| name      | char(30) | YES  |     | NULL    |       |
+| CCATRank  | int(11)  | YES  |     | NULL    |       |
++-----------+----------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql> create table book
+    -> (
+    -> bookid int auto_increment
+    -> primary key,
+    -> bookname varchar(50) not null,
+    -> price decimal(6,2));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> alter table book add column author varchar(50) not null;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| bookid   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| bookname | varchar(50)  | NO   |     | NULL    |                |
+| price    | decimal(6,2) | YES  |     | NULL    |                |
+| author   | varchar(50)  | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table book modify column author char(30) not null;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
+Empty set (0.00 sec)
+
+mysql> alter table book drop column author;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into book(book name,price)values ('my sql for dummies',350),('my sql for developers',282);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'name,price)values ('my sql for dummies',350),('my sql for developers',282)' at line 1
+mysql> insert into book(bookname,price)values ('my sql for dummies',350),('my sql for developers',282);
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++--------+-----------------------+--------+
+| bookid | bookname              | price  |
++--------+-----------------------+--------+
+|      1 | my sql for dummies    | 350.00 |
+|      2 | my sql for developers | 282.00 |
++--------+-----------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into (bookname,price) values ('xyz',383),('abc',383);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near '(bookname,price) values ('xyz',383),('abc',383)' at line 1
+mysql> insert into book(bookname,price)values ('xyz',350),('abc',282);
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from book:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near ':' at line 1
+mysql> select * from book;
++--------+-----------------------+--------+
+| bookid | bookname              | price  |
++--------+-----------------------+--------+
+|      1 | my sql for dummies    | 350.00 |
+|      2 | my sql for developers | 282.00 |
+|      3 | xyz                   | 350.00 |
+|      4 | abc                   | 282.00 |
++--------+-----------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delete from book where bokid=3;
+ERROR 1054 (42S22): Unknown column 'bokid' in 'where clause'
+mysql> delete from book where bookid=3;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from book;
++--------+-----------------------+--------+
+| bookid | bookname              | price  |
++--------+-----------------------+--------+
+|      1 | my sql for dummies    | 350.00 |
+|      2 | my sql for developers | 282.00 |
+|      4 | abc                   | 282.00 |
++--------+-----------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> near ':' at line 1
+mysql> describe book;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| bookid   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| bookname | varchar(50)  | NO   |     | NULL    |                |
+| price    | decimal(6,2) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into book(bookname,price)values ('my sql for dummies',350),('my sql for developers',282);
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>  insert into (bookname,price) values ('xyz',383),('abc',383);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near '(bookname,price) values ('xyz',383),('abc',383)' at line 1
+mysql> insert into book(bookname,price)values ('xyz',350),('abc',282);
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from book:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near ':' at line 1
+mysql> select * from book;
++--------+-----------------------+--------+
+| bookid | bookname              | price  |
++--------+-----------------------+--------+
+|      1 | my sql for dummies    | 350.00 |
+|      2 | my sql for developers | 282.00 |
+|      3 | xyz                   | 350.00 |
+|      4 | abc                   | 282.00 |
++--------+-----------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table book
+    -> add constraint book_price_chk
+    -> check (price between 300 and 360);
+Query OK, 4 rows affected (0.14 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++--------+-----------------------+--------+
+| bookid | bookname              | price  |
++--------+-----------------------+--------+
+|      1 | my sql for dummies    | 350.00 |
+|      2 | my sql for developers | 282.00 |
+|      3 | xyz                   | 350.00 |
+|      4 | abc                   | 282.00 |
++--------+-----------------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table book add column author after bookname ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+ near 'after bookname' at line 1
+
+mysql> alter table book add column author varchar(40) after bookname;
+Query OK, 4 rows affected (0.14 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from book;
++--------+-----------------------+--------+--------+
+| bookid | bookname              | author | price  |
++--------+-----------------------+--------+--------+
+|      1 | my sql for dummies    | NULL   | 350.00 |
+|      2 | my sql for developers | NULL   | 282.00 |
+|      3 | xyz                   | NULL   | 350.00 |
+|      4 | abc                   | NULL   | 282.00 |
++--------+-----------------------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update book set author= 'shubham' where bookid=1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update book set author= 'ubham' where bookid=2;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update book set author= 'ubam' where bookid=3;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update book set author= 'bam' where bookid=4;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from book;
++--------+-----------------------+---------+--------+
+| bookid | bookname              | author  | price  |
++--------+-----------------------+---------+--------+
+|      1 | my sql for dummies    | shubham | 350.00 |
+|      2 | my sql for developers | ubham   | 282.00 |
+|      3 | xyz                   | ubam    | 350.00 |
+|      4 | abc                   | bam     | 282.00 |
++--------+-----------------------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> use vita;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_vita |
++----------------+
+| book           |
+| member         |
+| members        |
+| studentdetails |
++----------------+
+4 rows in set (0.56 sec)
+
+mysql> select *
+    -> from members;
++----------+---------+-------+-----------+------------------+------------+------------+----------+
+| MemberID | Fname   | Mname | Lname     | Email            | Phone      | Mem_DOJ    | Mem_type |
++----------+---------+-------+-----------+------------------+------------+------------+----------+
+|        1 | sagar   | null  | manchekar | xyz@gmail.com    | 9932566698 | 2019-08-27 | Gold     |
+|        2 | shubham | null  | pardeshi  | xyzqwe@gmail.com | 9932576548 | 2019-08-27 | silver   |
+|        3 | sunil   | null  | peshve    | asdhei@gmail.com | 9425376543 | 2019-08-27 | Regular  |
++----------+---------+-------+-----------+------------------+------------+------------+----------+
+3 rows in set (0.05 sec)
+
+mysql> create table refer
+    -> (
+    -> memberid int,
+    -> name varchar(30) primary key,
+    -> foreign key(memberid) references members(memberid));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into refer
+    -> (memberid,name)
+    -> values
+    -> (1,'ashwin');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into refer
+    -> (memberid,name)
+    -> values
+    -> (1,'ashwin');
+ERROR 1062 (23000): Duplicate entry 'ashwin' for key 'PRIMARY'
+mysql> insert into refer
+    -> (memberid,name)
+    -> values
+    -> (1,'shubham');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into refer
+    -> (memberid,name)
+    -> values
+    -> (2,'sagar');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select *
+    -> from refer;
++----------+---------+
+| memberid | name    |
++----------+---------+
+|        1 | ashwin  |
+|        1 | shubham |
+|        2 | sagar   |
++----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into refer
+    -> (memberid,name)
+    -> values
+    -> (4,'sagar');
+ERROR 1062 (23000): Duplicate entry 'sagar' for key 'PRIMARY'
+mysql> insert into refer
+    -> (memberid,name)
+    -> values
+    -> (4,'pritesh');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`vita`.`refer`, CONSTRAINT `refer_ibfk_1` FOREIGN KEY (`member
+id`) REFERENCES `members` (`MemberID`))
+mysql>
