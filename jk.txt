@@ -1,0 +1,117 @@
+create table salespeople
+( snum int primary key,
+sname varchar(20),
+city varchar(20),
+comm decimal (2,2)
+);
+
+
+insert into salespeople 
+values
+(1001,'Peel','London',.12),
+(1002,'Serres','san Jose',.13),
+(1004,'Motika','London',.11),
+(1007,'Rif kin','Barcelona',.15),
+(1003,'Axel rod','New York',.10),
+(1005,'Frank','London',.26);
+
+
+create table customers
+( cnum int primary key,
+cname varchar(20),
+city varchar(20),
+rating int,
+snum int references salespeople(snum)
+);
+
+
+insert into customers 
+values
+(2001,'Hoffman','London',100,1001),
+(2002,'Giovanni','Rome',200,1003),
+(2003,'LIU','San jose',200,1002),
+(2004,'Grass','Berline',300,1002),
+(2006,'Clemans','London',100,1001),
+(2008,'Cisneros','San JOse',300,1007),
+(2007,'Pereira','Rome',100,1004);
+
+
+create table orders
+( onum int primary key,
+amt decimal (6,2),
+odate date,
+cnum int references customers(cnum),
+snum int references salespeople(snum)
+);
+
+insert into orders 
+values
+(3001, 18.69,'1996/03/10',2008,1007),
+(3003, 767.19,'1996/03/10',2001,1001),
+(3002, 1900.10,'1996/03/10',2007,1004),
+(3005, 5160.45,'1996/03/10',2003,1002),
+(3006, 1098.16,'1996/03/10',2008,1007), 
+(3009, 1713.23,'1996/04/10',2002,1003),
+(3007, 75.75,'1996/04/10',2002,1003),
+(3008, 4723.00,'1996/05/10',2006,1001),
+(3010, 1309.95,'1996/06/10',2004,1002),
+(3011, 9891.88,'1996/06/10',2006,1001);
+
+
+
+
+
+select *
+from salespeople;
+
+
+select *
+from customers;
+
+
+select *
+from orders;
+
+select c1.cname,s1.sname
+from customers c1 INNER JOIN  salespeople s1
+ON c1.snum=s1.snum;
+
+select c1.cname, count=c1.snum, s1.sname
+from customers c1 INNER JOIN salespeople s1
+group by c1.snum
+having count (c1.snum)>1
+
+select s.sname, s.snum from salespeople s,customers c
+where s.snum=c.snum
+group by snum
+having count(cnum)>1
+
+select s.sname
+from salespeople s,orders o
+group by o.snum
+having count(o.snum) 
+order by o.snum desc
+
+select c.cname, s.sname, s.city
+from salespeople s inner join customers c
+where c.city=s.city
+
+select cname
+from customers
+where rating>=200
+
+select sname,comm
+from salespeople
+where city='london'
+
+select onum,amt,odate
+from orders
+where snum=( select snum
+from salespeople 
+where sname= 'peel' )
+
+select cnum,cname
+from customers
+where cnum=( select cnum
+from orders
+where odate='1996-03-10')
